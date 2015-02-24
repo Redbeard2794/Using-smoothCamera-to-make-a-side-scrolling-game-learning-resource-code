@@ -1,0 +1,53 @@
+body {
+    font-family:    Verdana, Geneva, Arial, sans-serif;
+    font-size:      medium;
+    background-color: #4B0082;
+}
+h1 {
+    font-weight: bold;
+    color:       #00FA9A;
+    text-decoration: underline;
+}
+h2 {
+    font-weight: bold;
+    color:       #00FA9A;
+    font-size:   150%;
+}
+p {
+    color:  #C0C0C0;
+}
+li {
+    color:  #7FFF00;
+}
+a {
+    color:  #00FA9A;
+}
+H6 {
+    font-weight: bold;
+    color:  #00FA9A;
+}
+H4 {
+    color:  #7FFF00;
+    text-decoration: underline;
+}
+li {
+    color:;
+}
+textarea {
+    border: 3px solid #00FA9A;
+	width: 550px;
+	height: 175px;
+    font-family:    Verdana, Geneva, Arial, sans-serif;
+}
+/*** Inputs ***/
+
+
+input[type=text] {
+    font-size:  115%;
+}
+input[type=submit] {
+    font-size:  125%;
+}
+select {
+    font-size:  125%;
+}

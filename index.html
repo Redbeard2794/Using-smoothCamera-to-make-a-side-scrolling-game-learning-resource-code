@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<meta charset="utf-8"> 
+    <head>
+        <title>Using the scrolling camera to make a side scrolling game</title>
+         <link rel="stylesheet" type="text/css" href="css files/LearningResource.css">
+    </head>
+
+    <body>
+        <h2>Using the scrolling camera to make a side scrolling game</h2>
+
+        <h1>Overview</h1>
+        <p>Welcome to my learning resource for using the andengine smoothCamera to create a side scrolling game.</p>
+
+
+        	<H4> The steps</H4>
+        	<ul>
+    			<li>Step 1.) Create an instance of a smooth camera
+    			<li>Step 2.) Set up the camera
+    			<li>Step 3.) Create a sprite/object for the camera to follow
+                <li>Step 4.) Tell the camera to follow our sprite
+                <li>Step 5.) Fiddle with camera properties
+			</ul>
+
+
+
+        <h1>Creating an instance of a smooth camera</h1>
+    		<p>
+    		<textarea readonly id="camera part 1" name="cameraPart1">private static final int CAMERA_WIDTH = 720;
+
+private static final int CAMERA_HEIGHT = 480;
+
+SmoothCamera mSmoothCamera;
+    </textarea>
+    		</p>
+
+            <p>CAMERA_HEIGHT and CAMERA_WIDTH are used to define the bounds of the camera</p>
+            <p>Make sure to import org.andengine.engine.camera.SmoothCamera</p>
+
+            <h1>Setting up the camera</h1>
+            <p>We will be working in public EngineOptions onCreateEngineOptions()</p>
+
+            <p>
+             <textarea readonly id="camera part 2" name="settingUpcameraPart2">
+public EngineOptions onCreateEngineOptions()  
+{
+
+}</textarea>
+
+         </p>
+
+         <p>We then initialise our camera. The parameters are it's 'x' and 'y' co-ordinates, width and height, 'x' and 'y' velocities and the zoom factor</p>
+
+         <p>
+            <textarea readonly id="camera part 3" name="settingUpcameraPart3">
+
+//params are x, y, width, height, xVelocity, yVelocity, zoom factor
+
+mSmoothCamera = new SmoothCamera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT,100, 0, 1.0f);
+                
+        
+
+        </textarea>
+            </p>
+
+        <p>We then set up our engine to wok with our smooth camera</p>
+        <p>Create an engine. The parameters are fullScreen, orientation, resolution and also our camera</p> 
+        <p>We then return our newly created engine</p>
+
+        <p>
+             <textarea readonly id="camera part 2" name="settingUpcameraPart4">//params are fullScreen, orientation, resolution and the camera we want to use
+
+EngineOptions engine = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
+                new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),mSmoothCamera);
+                
+
+return engine;</textarea>
+        </p>
+
+        <h1>Create a sprite/object for the camera to follow</h1>
+        <p>Declare a tiled texture region and an animated sprite at the top of our code</p>
+            <p>
+            <textarea readonly id="sprite part 1" name="spritePart1">private ITiledTextureRegion playerTiledTextureRegion;
+private AnimatedSprite playerSprite;</textarea>
+            </p>
+
+
+            <p>Now, in our loadGfx method we set the asset base path, create a texture atlas using the txtureManager and the width and height of the sprite sheet.</p>
+            <p>We then load our texture</p>
+        	<p>
+    		<textarea readonly id="sprite part 2" name="spritePart2">BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+
+BitmapTextureAtlas playerTexture = new BitmapTextureAtlas(getTextureManager(), 246, 35);
+
+playerTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory
+        .createTiledFromAsset(playerTexture, this.getAssets(),"SpyroRun.png", 0, 0, 6, 1);
+                    
+playerTexture.load();</textarea>
+    		</p>
+
+<p>Make sure to call loadGfx() in onCreateResources</p>
+
+<p>Now, in onPopulateScene we will initialise our animated sprite, animate it, set it's 'z' index and attach it to the scene</p>
+
+             <p>
+            <textarea readonly id="sprite part 3" name="spriteLevelPart3">playerSprite = new AnimatedSprite(100, 300, 
+                playerTiledTextureRegion,this.getVertexBufferObjectManager());
+                
+
+playerSprite.animate(150);
+
+playerSprite.setZIndex(10);
+
+this.mScene.attachChild(playerSprite);</textarea>
+            </p>
+
+
+  <h1>Telling our smoothCamera to follow the player sprite as it moves</h1>  
+  <p>Place the following line of code in onPopulateScene</p>		
+<p>
+    <textarea readonly id="follow 1" name="follow 1">//tell the camera to follow the player sprite
+
+mSmoothCamera.setChaseEntity(playerSprite);</textarea>
+</p>
+
+<p>Place the following line of code into your onUpdate method to make your animated sprite move across the screen in order to see the camera follow it:
+    <p>playerSprite.setX(playerSprite.getX()+1f);</p>
+</p>
+<p>Make sure to have some sort of background image as if it is just a solid colour it will be very hard to tell if it is scrolling or not</p>
+
+
+        <h1>Link to a video showing the scrolling camera</h1>
+            <ul>
+                <li>Here is a link to a <a href="https://www.youtube.com/watch?v=rdG3kTodZmY">video of the camera scrolling</a>
+            </ul>
+
+        <h1>Sources</h1>
+		<ul>
+            <li>I adapted the code from <a href="http://www.matim-dev.com/moving-camera-smoothly-from-point-a-to-b.html">this tutorial</a> to use a smooth camera
+		</ul>
+
+        <h1>Download the the code here</h1>
+            <ul>
+                <li><a href="https://github.com/Redbeard2794/Using-smoothCamera-to-make-a-side-scrolling-game-learning-resource-code.git">https://github.com/Redbeard2794/Using-smoothCamera-to-make-a-side-scrolling-game-learning-resource-code.git</a>
+            </ul>
+
+
+    </body>
+
+</html>
